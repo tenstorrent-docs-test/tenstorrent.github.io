@@ -2,6 +2,7 @@ name: Build and Deploy Sphinx Documentation
 
 on:
   push:
+    workflow_dispatch:
     branches:
       - main
 
