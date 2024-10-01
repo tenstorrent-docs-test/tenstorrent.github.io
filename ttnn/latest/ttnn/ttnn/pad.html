@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="ttnn.permute" href="permute.html" />
-    <link rel="prev" title="ttnn.concat" href="concat.html" /> 
+    <link rel="prev" title="ttnn.nonzero" href="nonzero.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -55,7 +55,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../about.html">What is ttnn?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../get_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installing.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Using ttnn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tensor.html">Tensor</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">APIs</a><ul class="current">
@@ -72,11 +71,20 @@
 <li class="toctree-l3"><a class="reference internal" href="../api.html#reduction">Reduction</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../api.html#data-movement">Data Movement</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="concat.html">ttnn.concat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nonzero.html">ttnn.nonzero</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">ttnn.pad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="permute.html">ttnn.permute</a></li>
 <li class="toctree-l4"><a class="reference internal" href="reshape.html">ttnn.reshape</a></li>
 <li class="toctree-l4"><a class="reference internal" href="repeat.html">ttnn.repeat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="repeat_interleave.html">ttnn.repeat_interleave</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tilize.html">ttnn.tilize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tilize_with_val_padding.html">ttnn.tilize_with_val_padding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fill_rm.html">ttnn.fill_rm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fill_ones_rm.html">ttnn.fill_ones_rm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="untilize.html">ttnn.untilize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="untilize_with_unpadding.html">ttnn.untilize_with_unpadding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="untilize_with_halo_v2.html">ttnn.untilize_with_halo_v2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="indexed_fill.html">ttnn.indexed_fill</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#normalization">Normalization</a></li>
@@ -142,19 +150,32 @@
 </h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="ttnn.pad">
-<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">pad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ttnn.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ttnn.MemoryConfig</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ttnn.DRAM_MEMORY_CONFIG</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">ttnn.Tensor</span></span></span><a class="headerlink" href="#ttnn.pad" title="Permalink to this definition"></a>
+<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">pad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">input_tensor:</span> <span class="pre">ttnn.Tensor,</span> <span class="pre">padding:</span> <span class="pre">Tuple[Tuple[int,</span> <span class="pre">int]</span> <span class="pre">,</span> <span class="pre">output_tensor_shape:</span> <span class="pre">List[int],</span> <span class="pre">input_tensor_start:</span> <span class="pre">List[int],</span> <span class="pre">value:</span> <span class="pre">Union[int,</span> <span class="pre">float],</span> <span class="pre">*,</span> <span class="pre">Optional[ttnn.MemoryConfig]</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></span><a class="headerlink" href="#ttnn.pad" title="Permalink to this definition"></a>
 </dt>
 <dd>
-<p>Pad tensor with constant value.</p>
-<p>Padded shape is accumulated if ttnn.pad is called on a tensor with padding.</p>
+<p>Returns a padded tensor, with a specified value at the specified location. If the input tensor is on host, the pad will be performed on host, and if its on device it will be performed on device.</p>
+<p>Equivalent pytorch code:</p>
+<div class="highlight-python notranslate">
+<div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">output_tensor_shape</span><span class="p">,</span> <span class="n">input_tensor_start</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt>Args:</dt>
 <dd>
 <ul class="simple">
-<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input_tensor</span></code>: input tensor</p></li>
-<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">padding</span></code>: padding to apply. Each element of padding should be a tuple of 2 integers, with the first integer specifying the number of values to add before the tensor and the second integer specifying the number of values to add after the tensor.</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input_tensor</span></code>: Input Tensor.</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">padding</span></code>: padding to apply. Each element of padding should be a tuple of 2 integers, with the first integer specifying the number of values to add before the tensor and the second integer specifying the number of values to add after the tensor. Mutually exclusive to output_tensor_shape and input_tensor_start.</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">output_tensor_shape</span></code>: Final shape of padded tensor. This along with input_tensor_start is mutually exclusive from padding.</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input_tensor_start</span></code>: Shape describing where to start padding. This along with output_tensor_shape is mutually exclusive from padding.</p></li>
 <li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">value</span></code>: value to pad with</p></li>
-<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">memory_config</span></code>: the memory configuration to use for the operation</p></li>
+</ul>
+</dd>
+<dt>Keyword Args:</dt>
+<dd>
+<ul class="simple">
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">memory_config</span></code>: Memory Config of the output tensor</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">queue_id</span></code> (Optional[uint8]): command queue id</p></li>
 </ul>
 </dd>
 </dl>
@@ -168,7 +189,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="concat.html" class="btn btn-neutral float-left" title="ttnn.concat" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nonzero.html" class="btn btn-neutral float-left" title="ttnn.nonzero" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="permute.html" class="btn btn-neutral float-right" title="ttnn.permute" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -200,6 +221,8 @@
             <dt>Versions</dt>
             
             <dd><a href="https://tenstorrent.github.io/ttnn/latest/index.html">latest</a></dd>
+            
+            <dd><a href="https://tenstorrent.github.io/ttnn/v0.52.0/index.html">v0.52.0</a></dd>
             
         </dl>
         

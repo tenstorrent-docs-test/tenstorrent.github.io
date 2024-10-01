@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="ttnn.addcmul" href="addcmul.html" />
-    <link rel="prev" title="ttnn.minimum" href="minimum.html" /> 
+    <link rel="prev" title="ttnn.lerp_bw" href="lerp_bw.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -55,7 +55,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../about.html">What is ttnn?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../get_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installing.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Using ttnn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tensor.html">Tensor</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">APIs</a><ul class="current">
@@ -72,6 +71,9 @@
 <li class="toctree-l4"><a class="reference internal" href="addcmul.html">ttnn.addcmul</a></li>
 <li class="toctree-l4"><a class="reference internal" href="mac.html">ttnn.mac</a></li>
 <li class="toctree-l4"><a class="reference internal" href="where.html">ttnn.where</a></li>
+<li class="toctree-l4"><a class="reference internal" href="addcmul_bw.html">ttnn.addcmul_bw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="addcdiv_bw.html">ttnn.addcdiv_bw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="where_bw.html">ttnn.where_bw</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#losses">Losses</a></li>
@@ -140,9 +142,51 @@
 </h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="ttnn.addcdiv">
-<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">addcdiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tensor:</span> <span class="pre">~tt_lib.tensor.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_tensor1:</span> <span class="pre">~tt_lib.tensor.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_tensor2:</span> <span class="pre">~tt_lib.tensor.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter:</span> <span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_config:</span> <span class="pre">~tt_lib.tensor.MemoryConfig</span> <span class="pre">=</span> <span class="pre">tt::tt_metal::MemoryConfig(memory_layout=TensorMemoryLayout::INTERLEAVED</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_type=BufferType::DRAM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shard_spec=std::nullopt)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../dependencies/tensor.html#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">Tensor</span></a></span></span><a class="headerlink" href="#ttnn.addcdiv" title="Permalink to this definition"></a>
+<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">addcdiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tensor_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_tensor_b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_tensor_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../dependencies/tensor.html#ttnn.MemoryConfig" title="ttnn.MemoryConfig"><span class="pre">ttnn.MemoryConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></span><a class="headerlink" href="#ttnn.addcdiv" title="Permalink to this definition"></a>
 </dt>
-<dd></dd>
+<dd>
+<dl class="simple">
+<dt>Args:</dt>
+<dd>
+<ul class="simple">
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input_tensor_a</span></code></p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input_tensor_b</span></code></p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input_tensor_c</span></code> (ttnn.Tensor or Number):</p></li>
+</ul>
+</dd>
+<dt>Keyword Args:</dt>
+<dd>
+<ul class="simple">
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">value</span></code> (float) : Default value is 1.0</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">memory_config</span></code> (Optional[ttnn.MemoryConfig]): Memory configuration for the operation.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Supported dtypes and layouts:</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd">
+<td><p>Dtypes</p></td>
+<td><p>Layouts</p></td>
+<td><p>Ranks</p></td>
+</tr>
+<tr class="row-even">
+<td><p>BFLOAT16</p></td>
+<td><p>TILE</p></td>
+<td><p>2, 3, 4</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note : bfloat8_b/bfloat4_b supports only on TILE_LAYOUT</p>
+<p>Example:</p>
+<div class="doctest highlight-default notranslate">
+<div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tensor1</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">to_device</span><span class="p">(</span><span class="n">ttnn</span><span class="o">.</span><span class="n">from_torch</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">)),</span> <span class="n">device</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tensor2</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">to_device</span><span class="p">(</span><span class="n">ttnn</span><span class="o">.</span><span class="n">from_torch</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">)),</span> <span class="n">device</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tensor3</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">to_device</span><span class="p">(</span><span class="n">ttnn</span><span class="o">.</span><span class="n">from_torch</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">)),</span> <span class="n">device</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">addcdiv</span><span class="p">(</span><span class="n">tensor1</span><span class="p">,</span> <span class="n">tensor2</span><span class="p">,</span> <span class="n">tensor3</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
 </dl>
 
 </section>
@@ -152,7 +196,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="minimum.html" class="btn btn-neutral float-left" title="ttnn.minimum" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lerp_bw.html" class="btn btn-neutral float-left" title="ttnn.lerp_bw" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="addcmul.html" class="btn btn-neutral float-right" title="ttnn.addcmul" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -184,6 +228,8 @@
             <dt>Versions</dt>
             
             <dd><a href="https://tenstorrent.github.io/ttnn/latest/index.html">latest</a></dd>
+            
+            <dd><a href="https://tenstorrent.github.io/ttnn/v0.52.0/index.html">v0.52.0</a></dd>
             
         </dl>
         

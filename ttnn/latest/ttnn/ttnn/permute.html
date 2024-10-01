@@ -55,7 +55,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../about.html">What is ttnn?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../get_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installing.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Using ttnn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tensor.html">Tensor</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">APIs</a><ul class="current">
@@ -72,11 +71,20 @@
 <li class="toctree-l3"><a class="reference internal" href="../api.html#reduction">Reduction</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../api.html#data-movement">Data Movement</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="concat.html">ttnn.concat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nonzero.html">ttnn.nonzero</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pad.html">ttnn.pad</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">ttnn.permute</a></li>
 <li class="toctree-l4"><a class="reference internal" href="reshape.html">ttnn.reshape</a></li>
 <li class="toctree-l4"><a class="reference internal" href="repeat.html">ttnn.repeat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="repeat_interleave.html">ttnn.repeat_interleave</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tilize.html">ttnn.tilize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tilize_with_val_padding.html">ttnn.tilize_with_val_padding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fill_rm.html">ttnn.fill_rm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fill_ones_rm.html">ttnn.fill_ones_rm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="untilize.html">ttnn.untilize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="untilize_with_unpadding.html">ttnn.untilize_with_unpadding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="untilize_with_halo_v2.html">ttnn.untilize_with_halo_v2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="indexed_fill.html">ttnn.indexed_fill</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#normalization">Normalization</a></li>
@@ -142,16 +150,23 @@
 </h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="ttnn.permute">
-<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">permute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../dependencies/tensor.html#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../dependencies/tensor.html#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></span><a class="headerlink" href="#ttnn.permute" title="Permalink to this definition"></a>
+<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">permute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">input_tensor:</span> <span class="pre">ttnn.Tensor,</span> <span class="pre">dims:</span> <span class="pre">List[int],</span> <span class="pre">memory_config:</span> <span class="pre">Optional[MemoryConfig]</span> <span class="pre">=</span> <span class="pre">std::nullopt,</span> <span class="pre">queue_id:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></span><a class="headerlink" href="#ttnn.permute" title="Permalink to this definition"></a>
 </dt>
 <dd>
-<p>Permutes <code class="xref py py-attr docutils literal notranslate"><span class="pre">input_tensor</span></code> using <code class="xref py py-attr docutils literal notranslate"><span class="pre">order</span></code>.</p>
+<p>Permutes the dimensions of the input tensor according to the specified permutation.</p>
 <dl class="simple">
 <dt>Args:</dt>
 <dd>
 <ul class="simple">
-<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input_tensor</span></code>: the input tensor</p></li>
-<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">order</span></code>: the desired ordering of dimensions.</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input_tensor</span></code>: Input Tensor for permute.</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">dims</span></code>: the permutation of the dimensions of the input tensor.</p></li>
+</ul>
+</dd>
+<dt>Keyword Args:</dt>
+<dd>
+<ul class="simple">
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">memory_config</span></code>: Memory Config of the output tensor</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">queue_id</span></code>: command queue id</p></li>
 </ul>
 </dd>
 </dl>
@@ -205,6 +220,8 @@
             <dt>Versions</dt>
             
             <dd><a href="https://tenstorrent.github.io/ttnn/latest/index.html">latest</a></dd>
+            
+            <dd><a href="https://tenstorrent.github.io/ttnn/v0.52.0/index.html">v0.52.0</a></dd>
             
         </dl>
         

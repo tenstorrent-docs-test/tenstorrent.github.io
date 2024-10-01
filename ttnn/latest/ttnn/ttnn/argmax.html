@@ -24,7 +24,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="ttnn.topk" href="topk.html" />
+    <link rel="next" title="ttnn.prod" href="prod.html" />
     <link rel="prev" title="ttnn.var" href="var.html" /> 
 </head>
 
@@ -55,7 +55,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../about.html">What is ttnn?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../get_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installing.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Using ttnn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tensor.html">Tensor</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">APIs</a><ul class="current">
@@ -77,6 +76,7 @@
 <li class="toctree-l4"><a class="reference internal" href="sum.html">ttnn.sum</a></li>
 <li class="toctree-l4"><a class="reference internal" href="var.html">ttnn.var</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">ttnn.argmax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="prod.html">ttnn.prod</a></li>
 <li class="toctree-l4"><a class="reference internal" href="topk.html">ttnn.topk</a></li>
 </ul>
 </li>
@@ -144,13 +144,12 @@
 </h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="ttnn.argmax">
-<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">argmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tensor:</span> <span class="pre">ttnn.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_config:</span> <span class="pre">MemoryConfig</span> <span class="pre">=</span> <span class="pre">std::nullopt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_tensor</span> <span class="pre">:</span> <span class="pre">Optional[ttnn.Tensor]</span> <span class="pre">=</span> <span class="pre">std::nullopt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue_id</span> <span class="pre">:</span> <span class="pre">[int]</span> <span class="pre">=</span> <span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">ttnn.Tensor</span></span></span><a class="headerlink" href="#ttnn.argmax" title="Permalink to this definition"></a>
+<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">argmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tensor:</span> <span class="pre">ttnn.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_config:</span> <span class="pre">MemoryConfig</span> <span class="pre">=</span> <span class="pre">std::nullopt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_tensor</span> <span class="pre">:</span> <span class="pre">Optional[ttnn.Tensor]</span> <span class="pre">=</span> <span class="pre">std::nullopt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue_id</span> <span class="pre">:</span> <span class="pre">[int]</span> <span class="pre">=</span> <span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></span><a class="headerlink" href="#ttnn.argmax" title="Permalink to this definition"></a>
 </dt>
 <dd>
-<blockquote>
-<div>
 <p>Returns the indices of the maximum value of elements in the <code class="docutils literal notranslate"><span class="pre">input</span></code> tensor
 If no <code class="docutils literal notranslate"><span class="pre">dim</span></code> is provided, it will return the indices of maximum value of all elements in given <code class="docutils literal notranslate"><span class="pre">input</span></code></p>
+<p>Currenly this op only support dimension-specific reduction on last dimension.</p>
 <p>Input tensor must have BFLOAT16 data type and ROW_MAJOR layout.</p>
 <p>Output tensor will have UINT32 data type.</p>
 <p>Equivalent pytorch code:</p>
@@ -168,42 +167,13 @@ If no <code class="docutils literal notranslate"><span class="pre">dim</span></c
 <dt>Keyword Args:</dt>
 <dd>
 <ul class="simple">
-<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>: the dimension to reduce. If None, the argmax of the flattened input is returned</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>: the dimension to reduce. If None, the argmax of the flattened input is returned. Currenly only supports (dim=-1, dim=3, and dim=None)</p></li>
 <li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">memory_config</span></code>: Memory Config of the output tensor</p></li>
 <li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">output_tensor</span></code> (Optional[ttnn.Tensor]): preallocated output tensor</p></li>
 <li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">queue_id</span></code> (Optional[uint8]): command queue id</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-</blockquote>
-<table class="docutils align-default" id="id2">
-<caption>
-<span class="caption-text">Input Tensor 0</span><a class="headerlink" href="#id2" title="Permalink to this table"></a>
-</caption>
-<tbody>
-<tr class="row-odd">
-<td><p>min_rank</p></td>
-<td><p>max_rank</p></td>
-<td><p>dtypes</p></td>
-<td><p>layouts</p></td>
-<td><p>can_be_on_device</p></td>
-<td><p>can_be_on_cpu</p></td>
-<td><p>can_be_scalar</p></td>
-<td><p>is_optional</p></td>
-</tr>
-<tr class="row-even">
-<td><p>4</p></td>
-<td><p>4</p></td>
-<td><p>{DataType::BFLOAT16}</p></td>
-<td><p>{Layout::ROW_MAJOR}</p></td>
-<td><p>true</p></td>
-<td><p>false</p></td>
-<td><p>false</p></td>
-<td><p>false</p></td>
-</tr>
-</tbody>
-</table>
 </dd>
 </dl>
 
@@ -215,7 +185,7 @@ If no <code class="docutils literal notranslate"><span class="pre">dim</span></c
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="var.html" class="btn btn-neutral float-left" title="ttnn.var" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="topk.html" class="btn btn-neutral float-right" title="ttnn.topk" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="prod.html" class="btn btn-neutral float-right" title="ttnn.prod" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -246,6 +216,8 @@ If no <code class="docutils literal notranslate"><span class="pre">dim</span></c
             <dt>Versions</dt>
             
             <dd><a href="https://tenstorrent.github.io/ttnn/latest/index.html">latest</a></dd>
+            
+            <dd><a href="https://tenstorrent.github.io/ttnn/v0.52.0/index.html">v0.52.0</a></dd>
             
         </dl>
         

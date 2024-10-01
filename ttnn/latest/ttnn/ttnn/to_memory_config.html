@@ -55,7 +55,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../about.html">What is ttnn?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../get_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installing.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Using ttnn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tensor.html">Tensor</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">APIs</a><ul class="current">
@@ -147,11 +146,9 @@
 </h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="ttnn.to_memory_config">
-<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">to_memory_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ttnn.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../dependencies/tensor.html#tt_lib.tensor.MemoryConfig" title="tt_lib.tensor.MemoryConfig"><span class="pre">MemoryConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataType</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">ttnn.Tensor</span></span></span><a class="headerlink" href="#ttnn.to_memory_config" title="Permalink to this definition"></a>
+<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">to_memory_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../dependencies/tensor.html#ttnn.MemoryConfig" title="ttnn.MemoryConfig"><span class="pre">MemoryConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataType</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></span><a class="headerlink" href="#ttnn.to_memory_config" title="Permalink to this definition"></a>
 </dt>
 <dd>
-<blockquote>
-<div>
 <p>Converts a tensor to the desired mem_config, used for converting tensors to sharded tensors or interleaved, and to convert DRAM to L1 and vice versa</p>
 <dl>
 <dt>Args:</dt>
@@ -170,35 +167,6 @@
 </div>
 </dd>
 </dl>
-</div>
-</blockquote>
-<table class="docutils align-default" id="id2">
-<caption>
-<span class="caption-text">Input Tensor 0</span><a class="headerlink" href="#id2" title="Permalink to this table"></a>
-</caption>
-<tbody>
-<tr class="row-odd">
-<td><p>min_rank</p></td>
-<td><p>max_rank</p></td>
-<td><p>dtypes</p></td>
-<td><p>layouts</p></td>
-<td><p>can_be_on_device</p></td>
-<td><p>can_be_on_cpu</p></td>
-<td><p>can_be_scalar</p></td>
-<td><p>is_optional</p></td>
-</tr>
-<tr class="row-even">
-<td><p>1</p></td>
-<td><p>8</p></td>
-<td><p>{DataType::BFLOAT16, DataType::FLOAT32, DataType::UINT32, DataType::BFLOAT8_B, DataType::BFLOAT4_B, DataType::UINT16, DataType::INT32}</p></td>
-<td><p>{Layout::ROW_MAJOR, Layout::TILE}</p></td>
-<td><p>true</p></td>
-<td><p>true</p></td>
-<td><p>false</p></td>
-<td><p>false</p></td>
-</tr>
-</tbody>
-</table>
 </dd>
 </dl>
 
@@ -241,6 +209,8 @@
             <dt>Versions</dt>
             
             <dd><a href="https://tenstorrent.github.io/ttnn/latest/index.html">latest</a></dd>
+            
+            <dd><a href="https://tenstorrent.github.io/ttnn/v0.52.0/index.html">v0.52.0</a></dd>
             
         </dl>
         

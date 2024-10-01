@@ -55,7 +55,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../about.html">What is ttnn?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../get_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installing.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Using ttnn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tensor.html">Tensor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">APIs</a></li>
@@ -70,11 +69,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tensor-storage">Tensor Storage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tensor-api">Tensor API</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#tt_lib.tensor.Tensor"><code class="docutils literal notranslate"><span class="pre">Tensor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ttnn.Tensor"><code class="docutils literal notranslate"><span class="pre">Tensor</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#memoryconfig">MemoryConfig</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#tt_lib.tensor.MemoryConfig"><code class="docutils literal notranslate"><span class="pre">MemoryConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ttnn.MemoryConfig"><code class="docutils literal notranslate"><span class="pre">MemoryConfig</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#examples-of-converting-between-pytorch-tensor-and-tt-tensor">Examples of converting between PyTorch Tensor and TT Tensor</a><ul>
@@ -140,7 +139,7 @@ Operations in ttDNN library also utilize this library: operation take TT Tensors
 <p>ROW_MAJOR layout will store values in memory row by row, starting from last dimension of tensor.
 For a tensor of shape <code class="docutils literal notranslate"><span class="pre">[W,</span> <span class="pre">Z,</span> <span class="pre">Y,</span> <span class="pre">X]</span></code> to be stored in ROW_MAJOR order on TT Accelerator device, <code class="docutils literal notranslate"><span class="pre">X</span></code> must be divisible by 2.
 A tensor in ROW_MAJOR order with <code class="docutils literal notranslate"><span class="pre">X</span></code> not divisible by 2 can exist on host machine, but can’t be sent TT Accelerator device.
-So you can’t provide a TT Accelerator device to TT Tensor construct for this type of tensor nor can you use <code class="docutils literal notranslate"><span class="pre">tt_lib.tensor.Tensor.to()</span></code>
+So you can’t provide a TT Accelerator device to TT Tensor construct for this type of tensor nor can you use <code class="docutils literal notranslate"><span class="pre">ttnn.Tensor.to()</span></code>
 to send this type of tensor to TT Accelerator device.</p>
 <p>TILE layout will store values in memory tile by tile, starting from the last two dimensions of the tensor.
 A tile is a (32, 32) shaped subsection of tensor.
@@ -192,8 +191,8 @@ And the vector itself is stored in the shared pointer. That is done so that if t
 <h2>Tensor API<a class="headerlink" href="#tensor-api" title="Permalink to this heading"></a>
 </h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="tt_lib.tensor.Tensor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tt_lib.tensor.</span></span><span class="sig-name descname"><span class="pre">Tensor</span></span><a class="headerlink" href="#tt_lib.tensor.Tensor" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.Tensor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">Tensor</span></span><a class="headerlink" href="#ttnn.Tensor" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Class constructor supports tensors of rank 4.
@@ -226,52 +225,52 @@ The constructor takes following arguments:</p>
 <tr class="row-even">
 <td><p>data_type</p></td>
 <td><p>Data type of numbers in TT tensor</p></td>
-<td><p>tt_lib.tensor.DataType</p></td>
+<td><p>ttnn.DataType</p></td>
 <td>
-<p>tt_lib.tensor.DataType.BFLOAT16</p>
-<p>tt_lib.tensor.DataType.FLOAT32</p>
-<p>tt_lib.tensor.DataType.UINT32</p>
-<p>tt_lib.tensor.DataType.BFLOAT8_B</p>
-<p>tt_lib.tensor.DataType.BFLOAT4_B</p>
+<p>ttnn.DataType.BFLOAT16</p>
+<p>ttnn.DataType.FLOAT32</p>
+<p>ttnn.DataType.UINT32</p>
+<p>ttnn.DataType.BFLOAT8_B</p>
+<p>ttnn.DataType.BFLOAT4_B</p>
 </td>
 <td><p>Yes</p></td>
 </tr>
 <tr class="row-odd">
 <td><p>layout</p></td>
 <td><p>Layout of tensor data in memory</p></td>
-<td><p>tt_lib.tensor.Layout</p></td>
+<td><p>ttnn.Layout</p></td>
 <td>
-<p>tt_lib.tensor.Layout.ROW_MAJOR</p>
-<p>tt_lib.tensor.Layout.TILE</p>
+<p>ttnn.Layout.ROW_MAJOR</p>
+<p>ttnn.Layout.TILE</p>
 </td>
 <td><p>Yes</p></td>
 </tr>
 <tr class="row-even">
 <td><p>device</p></td>
 <td><p>Device on which tensor will be created</p></td>
-<td><p>tt_lib.device.Device</p></td>
+<td><p>ttnn.Device</p></td>
 <td><p>Host or TT accelerator device</p></td>
 <td><p>No</p></td>
 </tr>
 <tr class="row-odd">
 <td><p>mem_config</p></td>
 <td><p>Layout of tensor in TT Accelerator device memory banks</p></td>
-<td><p>tt_lib.tensor.MemoryConfig</p></td>
+<td><p>ttnn.MemoryConfig</p></td>
 <td></td>
 <td><p>No</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py method">
-<dt class="sig sig-object py" id="tt_lib.tensor.Tensor.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tt_lib.tensor.Tensor.__init__" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.Tensor.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ttnn.Tensor.__init__" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Overloaded function.</p>
 <ol class="arabic">
-<li><p>__init__(self: tt_lib.tensor.Tensor, arg0: tt_lib.tensor.Tensor) -&gt; None</p></li>
+<li><p>__init__(self: ttnn._ttnn.tensor.Tensor, arg0: ttnn._ttnn.tensor.Tensor) -&gt; None</p></li>
 <li>
-<p>__init__(self: tt_lib.tensor.Tensor, arg0: List[float], arg1: List[int[4]], arg2: tt_lib.tensor.DataType, arg3: tt_lib.tensor.Layout) -&gt; None</p>
+<p>__init__(self: ttnn._ttnn.tensor.Tensor, arg0: List[float], arg1: List[int[4]], arg2: ttnn._ttnn.tensor.DataType, arg3: ttnn._ttnn.tensor.Layout) -&gt; None</p>
 <blockquote>
 <div>
 <table class="docutils align-default">
@@ -303,11 +302,11 @@ The constructor takes following arguments:</p>
 <p>Example of creating a TT Tensor on host:</p>
 <div class="highlight-python notranslate">
 <div class="highlight"><pre><span></span><span class="n">py_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
-<span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+<span class="n">ttnn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
     <span class="n">py_tensor</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
     <span class="n">py_tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span>
-    <span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">,</span>
-    <span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">ROW_MAJOR</span><span class="p">,</span>
+    <span class="n">ttnn</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">,</span>
+    <span class="n">ttnn</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">ROW_MAJOR</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -315,7 +314,7 @@ The constructor takes following arguments:</p>
 </blockquote>
 </li>
 <li>
-<p>__init__(self: tt_lib.tensor.Tensor, arg0: List[float], arg1: List[int[4]], arg2: tt_lib.tensor.DataType, arg3: tt_lib.tensor.Layout, arg4: tt_lib.device.Device) -&gt; None</p>
+<p>__init__(self: ttnn._ttnn.tensor.Tensor, arg0: List[float], arg1: List[int[4]], arg2: ttnn._ttnn.tensor.DataType, arg3: ttnn._ttnn.tensor.Layout, arg4: ttnn._ttnn.device.Device) -&gt; None</p>
 <blockquote>
 <div>
 <table class="docutils align-default">
@@ -353,13 +352,13 @@ The constructor takes following arguments:</p>
 <p>Example of creating a TT Tensor on TT accelerator device:</p>
 <div class="highlight-python notranslate">
 <div class="highlight"><pre><span></span><span class="n">py_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
-<span class="n">tt_device</span> <span class="o">=</span> <span class="n">tt_lib</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">CreateDevice</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">tt_device</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">CreateDevice</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="o">//</span> <span class="o">...</span>
-<span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+<span class="n">ttnn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
     <span class="n">py_tensor</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
     <span class="n">py_tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span>
-    <span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">,</span>
-    <span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">ROW_MAJOR</span><span class="p">,</span>
+    <span class="n">ttnn</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">,</span>
+    <span class="n">ttnn</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">ROW_MAJOR</span><span class="p">,</span>
     <span class="n">tt_device</span>
 <span class="p">)</span>
 </pre></div>
@@ -368,7 +367,7 @@ The constructor takes following arguments:</p>
 </blockquote>
 </li>
 <li>
-<p>__init__(self: tt_lib.tensor.Tensor, arg0: List[float], arg1: List[int[4]], arg2: tt_lib.tensor.DataType, arg3: tt_lib.tensor.Layout, arg4: tt_lib.device.Device, arg5: tt_lib.tensor.MemoryConfig) -&gt; None</p>
+<p>__init__(self: ttnn._ttnn.tensor.Tensor, arg0: List[float], arg1: List[int[4]], arg2: ttnn._ttnn.tensor.DataType, arg3: ttnn._ttnn.tensor.Layout, arg4: ttnn._ttnn.device.Device, arg5: ttnn._ttnn.tensor.MemoryConfig) -&gt; None</p>
 <blockquote>
 <div>
 <table class="docutils align-default">
@@ -410,14 +409,14 @@ The constructor takes following arguments:</p>
 <p>Example of creating a TT Tensor on TT accelerator device with specified mem_config:</p>
 <div class="highlight-python notranslate">
 <div class="highlight"><pre><span></span><span class="n">py_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
-<span class="n">tt_device</span> <span class="o">=</span> <span class="n">tt_lib</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">CreateDevice</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">mem_config</span> <span class="o">=</span> <span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">MemoryConfig</span><span class="p">(</span><span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">TensorMemoryLayout</span><span class="o">.</span><span class="n">SINGLE_BANK</span><span class="p">)</span>
+<span class="n">tt_device</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">CreateDevice</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">mem_config</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">MemoryConfig</span><span class="p">(</span><span class="n">ttnn</span><span class="o">.</span><span class="n">TensorMemoryLayout</span><span class="o">.</span><span class="n">SINGLE_BANK</span><span class="p">)</span>
 <span class="o">//</span> <span class="o">...</span>
-<span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+<span class="n">ttnn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
     <span class="n">py_tensor</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
     <span class="n">py_tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span>
-    <span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">,</span>
-    <span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">ROW_MAJOR</span><span class="p">,</span>
+    <span class="n">ttnn</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">,</span>
+    <span class="n">ttnn</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">ROW_MAJOR</span><span class="p">,</span>
     <span class="n">tt_device</span><span class="p">,</span>
     <span class="n">mem_config</span>
 <span class="p">)</span>
@@ -427,7 +426,7 @@ The constructor takes following arguments:</p>
 </blockquote>
 </li>
 <li>
-<p>__init__(self: tt_lib.tensor.Tensor, tensor: object, data_type: Optional[tt_lib.tensor.DataType] = None, strategy: Dict[str, str] = {}) -&gt; None</p>
+<p>__init__(self: ttnn._ttnn.tensor.Tensor, tensor: object, data_type: Optional[ttnn._ttnn.tensor.DataType] = None, strategy: Dict[str, str] = {}) -&gt; None</p>
 <blockquote>
 <div>
 <table class="docutils align-default">
@@ -451,14 +450,14 @@ The constructor takes following arguments:</p>
 <p>Example of creating a TT Tensor that uses torch.Tensor’s storage as its own storage:</p>
 <div class="highlight-python notranslate">
 <div class="highlight"><pre><span></span><span class="n">py_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
-<span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">py_tensor</span><span class="p">)</span>
+<span class="n">ttnn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">py_tensor</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </blockquote>
 </li>
 <li>
-<p>__init__(self: tt_lib.tensor.Tensor, tensor: object, data_type: Optional[tt_lib.tensor.DataType] = None, device: tt_lib.device.Device, layout: tt_lib.tensor.Layout, mem_config: tt_lib.tensor.MemoryConfig) -&gt; None</p>
+<p>__init__(self: ttnn._ttnn.tensor.Tensor, tensor: object, data_type: Optional[ttnn._ttnn.tensor.DataType] = None, device: ttnn._ttnn.device.Device, layout: ttnn._ttnn.tensor.Layout, mem_config: ttnn._ttnn.tensor.MemoryConfig) -&gt; None</p>
 <blockquote>
 <div>
 <table class="docutils align-default">
@@ -494,7 +493,7 @@ The constructor takes following arguments:</p>
 <p>Example of creating a TT Tensor that uses torch.Tensor’s storage as its own storage:</p>
 <div class="highlight-python notranslate">
 <div class="highlight"><pre><span></span><span class="n">py_tensor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
-<span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">py_tensor</span><span class="p">)</span>
+<span class="n">ttnn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">py_tensor</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -505,8 +504,8 @@ The constructor takes following arguments:</p>
 </dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tt_lib.tensor.Tensor.buffer">
-<span class="sig-name descname"><span class="pre">buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">tt_lib.tensor.owned_buffer_for_uint16_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tt_lib.tensor.owned_buffer_for_int32_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tt_lib.tensor.owned_buffer_for_uint32_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tt_lib.tensor.owned_buffer_for_float32_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tt_lib.tensor.owned_buffer_for_bfloat16_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tt_lib.tensor.borrowed_buffer_for_uint16_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tt_lib.tensor.borrowed_buffer_for_int32_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tt_lib.tensor.borrowed_buffer_for_uint32_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tt_lib.tensor.borrowed_buffer_for_float32_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tt_lib.tensor.borrowed_buffer_for_bfloat16_t</span></span></span><a class="headerlink" href="#tt_lib.tensor.Tensor.buffer" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.Tensor.buffer">
+<span class="sig-name descname"><span class="pre">buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ttnn.Tensor" title="ttnn._ttnn.tensor.Tensor"><span class="pre">ttnn._ttnn.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">ttnn._ttnn.tensor.owned_buffer_for_uint8_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ttnn._ttnn.tensor.owned_buffer_for_uint16_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ttnn._ttnn.tensor.owned_buffer_for_int32_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ttnn._ttnn.tensor.owned_buffer_for_uint32_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ttnn._ttnn.tensor.owned_buffer_for_float32_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ttnn._ttnn.tensor.owned_buffer_for_bfloat16_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ttnn._ttnn.tensor.borrowed_buffer_for_uint8_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ttnn._ttnn.tensor.borrowed_buffer_for_uint16_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ttnn._ttnn.tensor.borrowed_buffer_for_int32_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ttnn._ttnn.tensor.borrowed_buffer_for_uint32_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ttnn._ttnn.tensor.borrowed_buffer_for_float32_t</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ttnn._ttnn.tensor.borrowed_buffer_for_bfloat16_t</span></span></span><a class="headerlink" href="#ttnn.Tensor.buffer" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Get the underlying buffer.</p>
@@ -519,8 +518,8 @@ The constructor takes following arguments:</p>
 </dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tt_lib.tensor.Tensor.device">
-<span class="sig-name descname"><span class="pre">device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">tt_lib.device.Device</span></span></span><a class="headerlink" href="#tt_lib.tensor.Tensor.device" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.Tensor.device">
+<span class="sig-name descname"><span class="pre">device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ttnn.Tensor" title="ttnn._ttnn.tensor.Tensor"><span class="pre">ttnn._ttnn.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">ttnn._ttnn.device.Device</span></span></span><a class="headerlink" href="#ttnn.Tensor.device" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Get the device of the tensor.</p>
@@ -532,8 +531,8 @@ The constructor takes following arguments:</p>
 </dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tt_lib.tensor.Tensor.get_dtype">
-<span class="sig-name descname"><span class="pre">get_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">tt_lib.tensor.DataType</span></span></span><a class="headerlink" href="#tt_lib.tensor.Tensor.get_dtype" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.Tensor.get_dtype">
+<span class="sig-name descname"><span class="pre">get_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ttnn.Tensor" title="ttnn._ttnn.tensor.Tensor"><span class="pre">ttnn._ttnn.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">ttnn._ttnn.tensor.DataType</span></span></span><a class="headerlink" href="#ttnn.Tensor.get_dtype" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Get dtype of TT Tensor.</p>
@@ -545,8 +544,8 @@ The constructor takes following arguments:</p>
 </dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tt_lib.tensor.Tensor.get_layout">
-<span class="sig-name descname"><span class="pre">get_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">tt_lib.tensor.Layout</span></span></span><a class="headerlink" href="#tt_lib.tensor.Tensor.get_layout" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.Tensor.get_layout">
+<span class="sig-name descname"><span class="pre">get_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ttnn.Tensor" title="ttnn._ttnn.tensor.Tensor"><span class="pre">ttnn._ttnn.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">ttnn._ttnn.tensor.Layout</span></span></span><a class="headerlink" href="#ttnn.Tensor.get_layout" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Get memory layout of TT Tensor.</p>
@@ -558,8 +557,8 @@ The constructor takes following arguments:</p>
 </dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tt_lib.tensor.Tensor.get_legacy_shape">
-<span class="sig-name descname"><span class="pre">get_legacy_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">tt_lib.tensor.Shape</span></span></span><a class="headerlink" href="#tt_lib.tensor.Tensor.get_legacy_shape" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.Tensor.get_legacy_shape">
+<span class="sig-name descname"><span class="pre">get_legacy_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ttnn.Tensor" title="ttnn._ttnn.tensor.Tensor"><span class="pre">ttnn._ttnn.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">ttnn._ttnn.tensor.Shape</span></span></span><a class="headerlink" href="#ttnn.Tensor.get_legacy_shape" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Get the shape of the tensor as Shape class.</p>
@@ -571,8 +570,8 @@ The constructor takes following arguments:</p>
 </dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tt_lib.tensor.Tensor.pad">
-<span class="sig-name descname"><span class="pre">pad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">4</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">4</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></span><a class="headerlink" href="#tt_lib.tensor.Tensor.pad" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.Tensor.pad">
+<span class="sig-name descname"><span class="pre">pad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ttnn.Tensor" title="ttnn._ttnn.tensor.Tensor"><span class="pre">ttnn._ttnn.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">4</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">4</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#ttnn.Tensor" title="ttnn._ttnn.tensor.Tensor"><span class="pre">ttnn._ttnn.tensor.Tensor</span></a></span></span><a class="headerlink" href="#ttnn.Tensor.pad" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Pad TT Tensor with given pad value <code class="docutils literal notranslate"><span class="pre">arg2</span></code>.</p>
@@ -626,11 +625,11 @@ The constructor takes following arguments:</p>
     <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span>
     <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span> <span class="p">]</span>
 <span class="p">)</span>
-<span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">ttl</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+<span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
     <span class="n">inp</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
     <span class="n">input_tensor_shape</span><span class="p">,</span>
-    <span class="n">ttl</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">,</span>
-    <span class="n">ttl</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">ROW_MAJOR</span><span class="p">,</span>
+    <span class="n">ttnn</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">,</span>
+    <span class="n">ttnn</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">ROW_MAJOR</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">tt_tensor_padded</span> <span class="o">=</span> <span class="n">tt_tensor</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">output_tensor_shape</span><span class="p">,</span> <span class="n">input_tensor_start</span><span class="p">,</span> <span class="n">pad_value</span><span class="p">)</span>
 
@@ -665,8 +664,8 @@ The constructor takes following arguments:</p>
 </dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tt_lib.tensor.Tensor.pad_to_tile">
-<span class="sig-name descname"><span class="pre">pad_to_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></span><a class="headerlink" href="#tt_lib.tensor.Tensor.pad_to_tile" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.Tensor.pad_to_tile">
+<span class="sig-name descname"><span class="pre">pad_to_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ttnn.Tensor" title="ttnn._ttnn.tensor.Tensor"><span class="pre">ttnn._ttnn.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#ttnn.Tensor" title="ttnn._ttnn.tensor.Tensor"><span class="pre">ttnn._ttnn.tensor.Tensor</span></a></span></span><a class="headerlink" href="#ttnn.Tensor.pad_to_tile" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Pads TT Tensor with given pad value <code class="docutils literal notranslate"><span class="pre">arg0</span></code>.</p>
@@ -702,11 +701,11 @@ The constructor takes following arguments:</p>
     <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span>
     <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span> <span class="p">]</span>
 <span class="p">)</span>
-<span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">ttl</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+<span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
     <span class="n">inp</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
     <span class="n">input_tensor_shape</span><span class="p">,</span>
-    <span class="n">ttl</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">,</span>
-    <span class="n">ttl</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">ROW_MAJOR</span><span class="p">,</span>
+    <span class="n">ttnn</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">,</span>
+    <span class="n">ttnn</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">ROW_MAJOR</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">tt_tensor_padded</span> <span class="o">=</span> <span class="n">tt_tensor</span><span class="o">.</span><span class="n">pad_to_tile</span><span class="p">(</span><span class="n">pad_value</span><span class="p">)</span>
 
@@ -736,8 +735,8 @@ The constructor takes following arguments:</p>
 </dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tt_lib.tensor.Tensor.storage_type">
-<span class="sig-name descname"><span class="pre">storage_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">tt_lib.tensor.StorageType</span></span></span><a class="headerlink" href="#tt_lib.tensor.Tensor.storage_type" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.Tensor.storage_type">
+<span class="sig-name descname"><span class="pre">storage_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ttnn.Tensor" title="ttnn._ttnn.tensor.Tensor"><span class="pre">ttnn._ttnn.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">ttnn._ttnn.tensor.StorageType</span></span></span><a class="headerlink" href="#ttnn.Tensor.storage_type" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Check if the tensor is on host</p>
@@ -749,14 +748,14 @@ The constructor takes following arguments:</p>
 </dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tt_lib.tensor.Tensor.to">
-<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tt_lib.tensor.Tensor.to" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.Tensor.to">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ttnn.Tensor.to" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Overloaded function.</p>
 <ol class="arabic">
 <li>
-<p>to(self: tt_lib.tensor.Tensor, device: tt_lib.device.Device, mem_config: tt_lib.tensor.MemoryConfig = tt::tt_metal::MemoryConfig(memory_layout=TensorMemoryLayout::INTERLEAVED,buffer_type=BufferType::DRAM,shard_spec=std::nullopt)) -&gt; tt_lib.tensor.Tensor</p>
+<p>to(self: ttnn._ttnn.tensor.Tensor, device: ttnn._ttnn.device.Device, mem_config: ttnn._ttnn.tensor.MemoryConfig = MemoryConfig(memory_layout=TensorMemoryLayout::INTERLEAVED,buffer_type=BufferType::DRAM,shard_spec=std::nullopt)) -&gt; ttnn._ttnn.tensor.Tensor</p>
 <blockquote>
 <div>
 <p>Move TT Tensor from host device to TT accelerator device.</p>
@@ -776,14 +775,14 @@ The constructor takes following arguments:</p>
 <tr class="row-even">
 <td><p>arg0</p></td>
 <td><p>Device to which tensor will be moved</p></td>
-<td><p>tt_lib.device.Device</p></td>
+<td><p>ttnn.Device</p></td>
 <td><p>TT accelerator device</p></td>
 <td><p>Yes</p></td>
 </tr>
 <tr class="row-odd">
 <td><p>arg1</p></td>
 <td><p>MemoryConfig of tensor of TT accelerator device</p></td>
-<td><p>tt_lib.tensor.MemoryConfig</p></td>
+<td><p>ttnn.MemoryConfig</p></td>
 <td></td>
 <td><p>No</p></td>
 </tr>
@@ -797,7 +796,7 @@ The constructor takes following arguments:</p>
 </blockquote>
 </li>
 <li>
-<p>to(self: tt_lib.tensor.Tensor, device_mesh: ttnn::multi_device::DeviceMesh, mem_config: tt_lib.tensor.MemoryConfig = tt::tt_metal::MemoryConfig(memory_layout=TensorMemoryLayout::INTERLEAVED,buffer_type=BufferType::DRAM,shard_spec=std::nullopt)) -&gt; tt_lib.tensor.Tensor</p>
+<p>to(self: ttnn._ttnn.tensor.Tensor, mesh_device: ttnn._ttnn.multi_device.MeshDevice, mem_config: ttnn._ttnn.tensor.MemoryConfig = MemoryConfig(memory_layout=TensorMemoryLayout::INTERLEAVED,buffer_type=BufferType::DRAM,shard_spec=std::nullopt)) -&gt; ttnn._ttnn.tensor.Tensor</p>
 <blockquote>
 <div>
 <p>Move TT Tensor from host device to TT accelerator device.</p>
@@ -816,15 +815,15 @@ The constructor takes following arguments:</p>
 <tbody>
 <tr class="row-even">
 <td><p>arg0</p></td>
-<td><p>DeviceMesh to which tensor will be moved</p></td>
-<td><p>tt_lib.device.DeviceMesh</p></td>
+<td><p>MeshDevice to which tensor will be moved</p></td>
+<td><p>ttnn.MeshDevice</p></td>
 <td><p>TT accelerator device</p></td>
 <td><p>Yes</p></td>
 </tr>
 <tr class="row-odd">
 <td><p>arg1</p></td>
 <td><p>MemoryConfig of tensor of TT accelerator device</p></td>
-<td><p>tt_lib.tensor.MemoryConfig</p></td>
+<td><p>ttnn.MemoryConfig</p></td>
 <td></td>
 <td><p>No</p></td>
 </tr>
@@ -838,7 +837,7 @@ The constructor takes following arguments:</p>
 </blockquote>
 </li>
 <li>
-<p>to(self: tt_lib.tensor.Tensor, target_layout: tt_lib.tensor.Layout, worker: tt_lib.device.Device = None) -&gt; tt_lib.tensor.Tensor</p>
+<p>to(self: ttnn._ttnn.tensor.Tensor, target_layout: ttnn._ttnn.tensor.Layout, worker: ttnn._ttnn.device.Device = None) -&gt; ttnn._ttnn.tensor.Tensor</p>
 <blockquote>
 <div>
 <p>Convert TT Tensor to provided memory layout. Available layouts conversions are:</p>
@@ -860,14 +859,15 @@ The constructor takes following arguments:</p>
 <tr class="row-even">
 <td><p>arg0</p></td>
 <td><p>Target memory layout</p></td>
-<td><p>tt_lib.tensor.Layout</p></td>
+<td><p>ttnn.Layout</p></td>
 <td><p>ROW_MAJOR, TILE</p></td>
 <td><p>Yes</p></td>
 </tr>
 <tr class="row-odd">
 <td><p>arg1</p></td>
-<td colspan="2"><p>Worker thread performing layout conversion      | tt_lib.device.Device
-(optional)                                     |</p></td>
+<td><p>Worker thread performing layout conversion
+(optional)</p></td>
+<td><p>ttnn.Device</p></td>
 <td><p>Thread tied to TT accelerator
 device</p></td>
 <td><p>No</p></td>
@@ -875,29 +875,52 @@ device</p></td>
 </tbody>
 </table>
 <div class="highlight-python notranslate">
-<div class="highlight"><pre><span></span><span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">tt_tensor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">TILE</span><span class="p">,</span> <span class="n">worker</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">tt_tensor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">ttnn</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">TILE</span><span class="p">,</span> <span class="n">worker</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </blockquote>
 </li>
 <li>
-<p>to(self: tt_lib.tensor.Tensor, target_layout: tt_lib.tensor.Layout, device_mesh: ttnn::multi_device::DeviceMesh = None) -&gt; tt_lib.tensor.Tensor</p>
+<p>to(self: ttnn._ttnn.tensor.Tensor, target_layout: ttnn._ttnn.tensor.Layout, mesh_device: ttnn._ttnn.multi_device.MeshDevice = None) -&gt; ttnn._ttnn.tensor.Tensor</p>
 <blockquote>
 <div>
-<p>Convert TT Tensor to provided memory layout. Available layouts conversions are:
-* ROW_MAJOR to TILE
-* TILE to ROW_MAJOR
-+———–+————————————————-+—————————-+——————————–+———-+
-| Argument  | Description                                     | Data type                  | Valid range                    | Required |
-+===========+=================================================+============================+================================+==========+
-| arg0      | Target memory layout                            | tt_lib.tensor.Layout       | ROW_MAJOR, TILE                | Yes      |
-+———–+————————————————-+—————————-+——————————–+———-+
-| arg1      | Worker thread performing layout conversion      | tt_lib.device.Device       | Thread tied to TT accelerator  | No       |
-|           | (optional)                                     |                             | device                         |          |
-+———–+————————————————-+—————————-+——————————–+———-+</p>
+<p>Convert TT Tensor to provided memory layout. Available layouts conversions are:</p>
+<ul class="simple">
+<li><p>ROW_MAJOR to TILE</p></li>
+<li><p>TILE to ROW_MAJOR</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Argument</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Data type</p></th>
+<th class="head"><p>Valid range</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>arg0</p></td>
+<td><p>Target memory layout</p></td>
+<td><p>ttnn.Layout</p></td>
+<td><p>ROW_MAJOR, TILE</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>arg1</p></td>
+<td><p>Worker thread performing layout conversion
+(optional)</p></td>
+<td><p>ttnn.Device</p></td>
+<td><p>Thread tied to TT accelerator
+device</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
 <div class="highlight-python notranslate">
-<div class="highlight"><pre><span></span><span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">tt_tensor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">TILE</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">tt_tensor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">ttnn</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">TILE</span><span class="p">,</span> <span class="n">mesh_device</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -908,8 +931,8 @@ device</p></td>
 </dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tt_lib.tensor.Tensor.unpad">
-<span class="sig-name descname"><span class="pre">unpad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">4</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">4</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></span><a class="headerlink" href="#tt_lib.tensor.Tensor.unpad" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.Tensor.unpad">
+<span class="sig-name descname"><span class="pre">unpad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ttnn.Tensor" title="ttnn._ttnn.tensor.Tensor"><span class="pre">ttnn._ttnn.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">4</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">4</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#ttnn.Tensor" title="ttnn._ttnn.tensor.Tensor"><span class="pre">ttnn._ttnn.tensor.Tensor</span></a></span></span><a class="headerlink" href="#ttnn.Tensor.unpad" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Unpad this TT Tensor.</p>
@@ -960,11 +983,11 @@ device</p></td>
     <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
     <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">]</span>
 <span class="p">)</span>
-<span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">ttl</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+<span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
     <span class="n">inp</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
     <span class="n">input_tensor_shape</span><span class="p">,</span>
-    <span class="n">ttl</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">,</span>
-    <span class="n">ttl</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">ROW_MAJOR</span><span class="p">,</span>
+    <span class="n">ttnn</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">,</span>
+    <span class="n">ttnn</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">ROW_MAJOR</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">tt_tensor_unpadded</span> <span class="o">=</span> <span class="n">tt_tensor</span><span class="o">.</span><span class="n">unpad</span><span class="p">(</span><span class="n">output_tensor_start</span><span class="p">,</span> <span class="n">output_tensor_end</span><span class="p">)</span>
 
@@ -993,8 +1016,8 @@ device</p></td>
 </dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tt_lib.tensor.Tensor.unpad_from_tile">
-<span class="sig-name descname"><span class="pre">unpad_from_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">tt_lib.tensor.Tensor</span></a></span></span><a class="headerlink" href="#tt_lib.tensor.Tensor.unpad_from_tile" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.Tensor.unpad_from_tile">
+<span class="sig-name descname"><span class="pre">unpad_from_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ttnn.Tensor" title="ttnn._ttnn.tensor.Tensor"><span class="pre">ttnn._ttnn.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#ttnn.Tensor" title="ttnn._ttnn.tensor.Tensor"><span class="pre">ttnn._ttnn.tensor.Tensor</span></a></span></span><a class="headerlink" href="#ttnn.Tensor.unpad_from_tile" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Unpads TT Tensor from given input tensor <code class="docutils literal notranslate"><span class="pre">arg0</span></code>.</p>
@@ -1032,11 +1055,11 @@ device</p></td>
 
 <span class="n">inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">input_tensor_shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">inp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">input_tensor_shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">inp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">ttl</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+<span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
     <span class="n">inp</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
     <span class="n">input_tensor_shape</span><span class="p">,</span>
-    <span class="n">ttl</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">,</span>
-    <span class="n">ttl</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">ROW_MAJOR</span><span class="p">,</span>
+    <span class="n">ttnn</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">,</span>
+    <span class="n">ttnn</span><span class="o">.</span><span class="n">Layout</span><span class="o">.</span><span class="n">ROW_MAJOR</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">tt_tensor_unpadded</span> <span class="o">=</span> <span class="n">tt_tensor</span><span class="o">.</span><span class="n">unpad_from_tile</span><span class="p">(</span><span class="n">output_tensor_shape</span><span class="p">)</span>
 
@@ -1073,15 +1096,15 @@ device</p></td>
 <h2>MemoryConfig<a class="headerlink" href="#memoryconfig" title="Permalink to this heading"></a>
 </h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="tt_lib.tensor.MemoryConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tt_lib.tensor.</span></span><span class="sig-name descname"><span class="pre">MemoryConfig</span></span><a class="headerlink" href="#tt_lib.tensor.MemoryConfig" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.MemoryConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">MemoryConfig</span></span><a class="headerlink" href="#ttnn.MemoryConfig" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Class defining memory configuration for storing tensor data on TT Accelerator device.
 There are eight DRAM memory banks on TT Accelerator device, indexed as 0, 1, 2, …, 7.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="tt_lib.tensor.MemoryConfig.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">tt_lib.tensor.MemoryConfig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_layout:</span> <span class="pre">tt_lib.tensor.TensorMemoryLayout</span> <span class="pre">=</span> <span class="pre">&lt;TensorMemoryLayout.INTERLEAVED:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_type:</span> <span class="pre">tt_lib.tensor.BufferType</span> <span class="pre">=</span> <span class="pre">&lt;BufferType.DRAM:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shard_spec:</span> <span class="pre">Optional[tt::tt_metal::ShardSpec]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tt_lib.tensor.MemoryConfig.__init__" title="Permalink to this definition"></a>
+<dt class="sig sig-object py" id="ttnn.MemoryConfig.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">ttnn._ttnn.tensor.MemoryConfig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_layout:</span> <span class="pre">ttnn._ttnn.tensor.TensorMemoryLayout</span> <span class="pre">=</span> <span class="pre">&lt;TensorMemoryLayout.INTERLEAVED:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_type:</span> <span class="pre">ttnn._ttnn.tensor.BufferType</span> <span class="pre">=</span> <span class="pre">&lt;BufferType.DRAM:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shard_spec:</span> <span class="pre">Optional[ttnn._ttnn.tensor.ShardSpec]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#ttnn.MemoryConfig.__init__" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Create MemoryConfig class.
@@ -1089,7 +1112,7 @@ If interleaved is set to True, tensor data will be interleaved across multiple D
 Otherwise, tensor data will be stored in a DRAM bank selected by dram_channel (valid values are 0, 1, …, 7).</p>
 <p>Example of creating MemoryConfig specifying that tensor data should be stored in DRAM bank 3.</p>
 <div class="highlight-python notranslate">
-<div class="highlight"><pre><span></span><span class="n">mem_config</span> <span class="o">=</span> <span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">MemoryConfig</span><span class="p">(</span><span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">TensorMemoryLayout</span><span class="o">.</span><span class="n">SINGLE_BANK</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">mem_config</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">MemoryConfig</span><span class="p">(</span><span class="n">ttnn</span><span class="o">.</span><span class="n">TensorMemoryLayout</span><span class="o">.</span><span class="n">SINGLE_BANK</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -1110,7 +1133,7 @@ Otherwise, tensor data will be stored in a DRAM bank selected by dram_channel (v
 The created tensor will be in ROW_MAJOR layout and stored on TT accelerator device.</p>
 <div class="highlight-python notranslate">
 <div class="highlight"><pre><span></span><span class="n">py_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
-<span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">py_tensor</span><span class="p">,</span> <span class="n">tt_lib</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">DataType</span><span class="o">.</span><span class="n">BFLOAT16</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">tt_device</span><span class="p">)</span>
+<span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">py_tensor</span><span class="p">,</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">tt_device</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -1167,6 +1190,8 @@ The created tensor will be in ROW_MAJOR layout and stored on TT accelerator devi
             <dt>Versions</dt>
             
             <dd><a href="https://tenstorrent.github.io/ttnn/latest/index.html">latest</a></dd>
+            
+            <dd><a href="https://tenstorrent.github.io/ttnn/v0.52.0/index.html">v0.52.0</a></dd>
             
         </dl>
         

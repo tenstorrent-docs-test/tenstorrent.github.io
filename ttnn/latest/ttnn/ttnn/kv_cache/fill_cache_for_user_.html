@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="ttnn.kv_cache.update_cache_for_token_" href="update_cache_for_token_.html" />
-    <link rel="prev" title="ttnn.upsample" href="../upsample.html" /> 
+    <link rel="prev" title="ttnn.downsample" href="../downsample.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -55,7 +55,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">What is ttnn?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../get_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Using ttnn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tensor.html">Tensor</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../api.html">APIs</a><ul class="current">
@@ -138,7 +137,7 @@
 </h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="ttnn.kv_cache.fill_cache_for_user_">
-<span class="sig-prename descclassname"><span class="pre">ttnn.kv_cache.</span></span><span class="sig-name descname"><span class="pre">fill_cache_for_user_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ttnn.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ttnn.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">ttnn.Tensor</span></span></span><a class="headerlink" href="#ttnn.kv_cache.fill_cache_for_user_" title="Permalink to this definition"></a>
+<span class="sig-prename descclassname"><span class="pre">ttnn.kv_cache.</span></span><span class="sig-name descname"><span class="pre">fill_cache_for_user_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></span><a class="headerlink" href="#ttnn.kv_cache.fill_cache_for_user_" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Populates the <code class="xref py py-attr docutils literal notranslate"><span class="pre">cache</span></code> tensor in-place with values sourced from <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> at <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_index</span></code>.</p>
@@ -162,7 +161,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../upsample.html" class="btn btn-neutral float-left" title="ttnn.upsample" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../downsample.html" class="btn btn-neutral float-left" title="ttnn.downsample" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="update_cache_for_token_.html" class="btn btn-neutral float-right" title="ttnn.kv_cache.update_cache_for_token_" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -194,6 +193,8 @@
             <dt>Versions</dt>
             
             <dd><a href="https://tenstorrent.github.io/ttnn/latest/index.html">latest</a></dd>
+            
+            <dd><a href="https://tenstorrent.github.io/ttnn/v0.52.0/index.html">v0.52.0</a></dd>
             
         </dl>
         

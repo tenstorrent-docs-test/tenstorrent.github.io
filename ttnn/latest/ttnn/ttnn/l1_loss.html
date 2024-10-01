@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="ttnn.mse_loss" href="mse_loss.html" />
-    <link rel="prev" title="ttnn.where" href="where.html" /> 
+    <link rel="prev" title="ttnn.where_bw" href="where_bw.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -55,7 +55,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../about.html">What is ttnn?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../get_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installing.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Using ttnn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tensor.html">Tensor</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">APIs</a><ul class="current">
@@ -138,9 +137,36 @@
 </h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="ttnn.l1_loss">
-<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">l1_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tensor_a:</span> <span class="pre">~tt_lib.tensor.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_tensor_b:</span> <span class="pre">~tt_lib.tensor.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_mode:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_config:</span> <span class="pre">~tt_lib.tensor.MemoryConfig</span> <span class="pre">=</span> <span class="pre">tt::tt_metal::MemoryConfig(memory_layout=TensorMemoryLayout::INTERLEAVED</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_type=BufferType::DRAM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shard_spec=std::nullopt)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../dependencies/tensor.html#tt_lib.tensor.Tensor" title="tt_lib.tensor.Tensor"><span class="pre">Tensor</span></a></span></span><a class="headerlink" href="#ttnn.l1_loss" title="Permalink to this definition"></a>
+<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">l1_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_reference</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_prediction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LossReductionMode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../dependencies/tensor.html#ttnn.MemoryConfig" title="ttnn.MemoryConfig"><span class="pre">ttnn.MemoryConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></span><a class="headerlink" href="#ttnn.l1_loss" title="Permalink to this definition"></a>
 </dt>
-<dd></dd>
+<dd>
+<p>Returns mean absolute error loss function for <cite>input_reference</cite> and <cite>input_prediction</cite></p>
+<dl class="simple">
+<dt>Args:</dt>
+<dd>
+<ul class="simple">
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input_reference</span></code></p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input_prediction</span></code></p></li>
+</ul>
+</dd>
+<dt>Keyword Args:</dt>
+<dd>
+<ul class="simple">
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">reduction</span></code> : LossReductionMode : NONE (default), MEAN, SUM</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">output_tensor</span></code>: the optional output tensor. Default is None. (<cite>output_tensor</cite> currently supported only for reduction=NONE)</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">memory_config</span></code>: the memory configuration of the output tensor. Default is input tensor memory config.</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">queue_id</span></code>: the command queue id. Default is 0.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="doctest highlight-default notranslate">
+<div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">input_reference</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">to_device</span><span class="p">(</span><span class="n">ttnn</span><span class="o">.</span><span class="n">from_torch</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">)),</span> <span class="n">device</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">input_prediction</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">to_device</span><span class="p">(</span><span class="n">ttnn</span><span class="o">.</span><span class="n">from_torch</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">)),</span> <span class="n">device</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output</span> <span class="o">=</span> <span class="n">ttnn</span><span class="o">.</span><span class="n">l1_loss</span><span class="p">(</span><span class="n">input_reference</span><span class="p">,</span> <span class="n">input_prediction</span><span class="p">,</span> <span class="n">reduction</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
 </dl>
 
 </section>
@@ -150,7 +176,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="where.html" class="btn btn-neutral float-left" title="ttnn.where" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="where_bw.html" class="btn btn-neutral float-left" title="ttnn.where_bw" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="mse_loss.html" class="btn btn-neutral float-right" title="ttnn.mse_loss" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -182,6 +208,8 @@
             <dt>Versions</dt>
             
             <dd><a href="https://tenstorrent.github.io/ttnn/latest/index.html">latest</a></dd>
+            
+            <dd><a href="https://tenstorrent.github.io/ttnn/v0.52.0/index.html">v0.52.0</a></dd>
             
         </dl>
         

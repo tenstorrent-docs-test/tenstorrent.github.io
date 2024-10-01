@@ -24,8 +24,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="ttnn.kv_cache.fill_cache_for_user_" href="kv_cache/fill_cache_for_user_.html" />
-    <link rel="prev" title="ttnn.MaxPool2d" href="MaxPool2d.html" /> 
+    <link rel="next" title="ttnn.downsample" href="downsample.html" />
+    <link rel="prev" title="ttnn.max_pool2d" href="max_pool2d.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -55,7 +55,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../about.html">What is ttnn?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../get_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installing.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Using ttnn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tensor.html">Tensor</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">APIs</a><ul class="current">
@@ -77,6 +76,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../api.html#pooling">Pooling</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../api.html#vision">Vision</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">ttnn.upsample</a></li>
+<li class="toctree-l4"><a class="reference internal" href="downsample.html">ttnn.downsample</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#kv-cache">KV Cache</a></li>
@@ -137,46 +137,19 @@
 </h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="ttnn.upsample">
-<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">upsample</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ttnn.upsample" title="Permalink to this definition"></a>
+<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">upsample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">function_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">function_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ttnn.upsample" title="Permalink to this definition"></a>
 </dt>
 <dd>
 <p>Upsamples a given multi-channel 2D (spatial) data.
 The input data is assumed to be of the form [N, H, W, C].</p>
 <p>The algorithms available for upsampling are ‘nearest’ for now.</p>
-<dl>
+<dl class="simple">
 <dt>Args:</dt>
 <dd>
 <ul class="simple">
 <li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input_tensor</span></code>: the input tensor</p></li>
 <li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">scale_factor</span></code>: multiplier for spatial size. Has to match input size if it is a tuple.</p></li>
 </ul>
-<table class="docutils align-default" id="id2">
-<caption>
-<span class="caption-text">Input Tensor 0</span><a class="headerlink" href="#id2" title="Permalink to this table"></a>
-</caption>
-<tbody>
-<tr class="row-odd">
-<td><p>min_rank</p></td>
-<td><p>max_rank</p></td>
-<td><p>dtypes</p></td>
-<td><p>layouts</p></td>
-<td><p>can_be_on_device</p></td>
-<td><p>can_be_on_cpu</p></td>
-<td><p>can_be_scalar</p></td>
-<td><p>is_optional</p></td>
-</tr>
-<tr class="row-even">
-<td><p>2</p></td>
-<td><p>4</p></td>
-<td><p>{DataType::BFLOAT16, DataType::BFLOAT8_B}</p></td>
-<td><p>{Layout::ROW_MAJOR, Layout::TILE}</p></td>
-<td><p>true</p></td>
-<td><p>false</p></td>
-<td><p>false</p></td>
-<td><p>false</p></td>
-</tr>
-</tbody>
-</table>
 </dd>
 </dl>
 </dd>
@@ -189,8 +162,8 @@ The input data is assumed to be of the form [N, H, W, C].</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="MaxPool2d.html" class="btn btn-neutral float-left" title="ttnn.MaxPool2d" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="kv_cache/fill_cache_for_user_.html" class="btn btn-neutral float-right" title="ttnn.kv_cache.fill_cache_for_user_" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="max_pool2d.html" class="btn btn-neutral float-left" title="ttnn.max_pool2d" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="downsample.html" class="btn btn-neutral float-right" title="ttnn.downsample" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -221,6 +194,8 @@ The input data is assumed to be of the form [N, H, W, C].</p>
             <dt>Versions</dt>
             
             <dd><a href="https://tenstorrent.github.io/ttnn/latest/index.html">latest</a></dd>
+            
+            <dd><a href="https://tenstorrent.github.io/ttnn/v0.52.0/index.html">v0.52.0</a></dd>
             
         </dl>
         

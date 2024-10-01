@@ -53,7 +53,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">What is ttnn?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../get_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installing.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Using ttnn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tensor.html">Tensor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">APIs</a></li>
@@ -104,6 +103,37 @@
   <section id="ttnn-split">
 <span id="id1"></span><h1>ttnn.split<a class="headerlink" href="#ttnn-split" title="Permalink to this heading"></a>
 </h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="ttnn.split">
+<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tensor:</span> <span class="pre">ttnn.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_splits:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Optional[ttnn.MemoryConfig]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../dependencies/tensor.html#ttnn.Tensor" title="ttnn.Tensor"><span class="pre">ttnn.Tensor</span></a></span></span><a class="headerlink" href="#ttnn.split" title="Permalink to this definition"></a>
+</dt>
+<dd>
+<p>Returns a tensor that is in num_splits ways on dim.</p>
+<p>Equivalent pytorch code:</p>
+<div class="highlight-python notranslate">
+<div class="highlight"><pre><span></span><span class="n">output_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Args:</dt>
+<dd>
+<ul class="simple">
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input_tensor</span></code>: Input Tensor.</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">num_splits</span></code>: Number of ways to split.</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">dim2</span></code>: Dim to split. Defaults to 0.</p></li>
+</ul>
+</dd>
+<dt>Keyword Args:</dt>
+<dd>
+<ul class="simple">
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">memory_config</span></code>: Memory Config of the output tensor</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">queue_id</span></code> (Optional[uint8]): command queue id</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+
 </section>
 
 
@@ -140,6 +170,8 @@
             <dt>Versions</dt>
             
             <dd><a href="https://tenstorrent.github.io/ttnn/latest/index.html">latest</a></dd>
+            
+            <dd><a href="https://tenstorrent.github.io/ttnn/v0.52.0/index.html">v0.52.0</a></dd>
             
         </dl>
         

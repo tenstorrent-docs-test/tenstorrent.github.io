@@ -24,7 +24,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="ttnn.create_sharded_memory_config" href="create_sharded_memory_config.html" />
+    <link rel="next" title="ttnn.SetDefaultDevice" href="SetDefaultDevice.html" />
     <link rel="prev" title="ttnn.manage_device" href="manage_device.html" /> 
 </head>
 
@@ -55,7 +55,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../about.html">What is ttnn?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../get_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installing.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Using ttnn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tensor.html">Tensor</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">APIs</a><ul class="current">
@@ -67,6 +66,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#ttnn.synchronize_device"><code class="docutils literal notranslate"><span class="pre">synchronize_device()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="SetDefaultDevice.html">ttnn.SetDefaultDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GetDefaultDevice.html">ttnn.GetDefaultDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="format_input_tensor.html">ttnn.format_input_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="format_output_tensor.html">ttnn.format_output_tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pad_to_tile_shape.html">ttnn.pad_to_tile_shape</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#memory-config">Memory Config</a></li>
@@ -126,10 +130,12 @@
 </h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="ttnn.synchronize_device">
-<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">synchronize_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ttnn.Device</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None:</span></span></span><a class="headerlink" href="#ttnn.synchronize_device" title="Permalink to this definition"></a>
+<span class="sig-prename descclassname"><span class="pre">ttnn.</span></span><span class="sig-name descname"><span class="pre">synchronize_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ttnn.Device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None:</span></span></span><a class="headerlink" href="#ttnn.synchronize_device" title="Permalink to this definition"></a>
 </dt>
 <dd>
-<p>Synchronize the device with host by waiting for all operations to complete.</p>
+<p>Synchronize the device with host by waiting for all operations to complete.
+If queue_id is provided then only the operations associated with that queue_id are waited for,
+otherwise operations for all command queues are waited on.</p>
 </dd>
 </dl>
 
@@ -141,7 +147,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="manage_device.html" class="btn btn-neutral float-left" title="ttnn.manage_device" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="create_sharded_memory_config.html" class="btn btn-neutral float-right" title="ttnn.create_sharded_memory_config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="SetDefaultDevice.html" class="btn btn-neutral float-right" title="ttnn.SetDefaultDevice" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -172,6 +178,8 @@
             <dt>Versions</dt>
             
             <dd><a href="https://tenstorrent.github.io/ttnn/latest/index.html">latest</a></dd>
+            
+            <dd><a href="https://tenstorrent.github.io/ttnn/v0.52.0/index.html">v0.52.0</a></dd>
             
         </dl>
         

@@ -110,8 +110,8 @@
 <li><p><strong>Memory:</strong> 12GB GDDR6, 192-bit memory bus</p></li>
 </ul>
 </section>
-<section id="n150s-n300s-comparison-table">
-<h2>n150s/n300s Comparison Table<a class="headerlink" href="#n150s-n300s-comparison-table" title="Permalink to this heading"></a></h2>
+<section id="n150s-n300s-n300d-comparison-table">
+<h2>n150s/n300s/n300d Comparison Table<a class="headerlink" href="#n150s-n300s-n300d-comparison-table" title="Permalink to this heading"></a></h2>
 <p><strong>NOTE:</strong> The <strong>n150s and n300s add-in cards</strong> come with a heatsink for passive cooling in systems which can provide sufficient forced airflow to the card. If your system does not (for example, a desktop workstation), installing the <a class="reference internal" href="../ack.html"><span class="std std-doc">Active Cooling Kit</span></a> is <strong>required</strong>. If the card isn’t sufficiently cooled, performance will be  substantially reduced to stay in a safe operating temperature range and you risk damage to the card.</p>
 <table class="docutils align-default">
 <thead>
@@ -174,10 +174,10 @@
 <td><p>1x 4+4-pin EPS12V</p></td>
 </tr>
 <tr class="row-odd"><td><p>Connectivity</p></td>
-<td><p>2x Warp 100 Bridge<br />2x QSFP-DD 400GbE (Active)*</p></td>
-<td><p>2x Warp 100 Bridge<br />2x QSFP-DD 400GbE (Active)*</p></td>
+<td><p>2x Warp 100 Bridge<br />2x QSFP-DD 400GbE</p></td>
+<td><p>2x Warp 100 Bridge<br />2x QSFP-DD 400GbE</p></td>
 </tr>
-<tr class="row-even"><td><p>Internal Chip-to-Chip</p></td>
+<tr class="row-even"><td><p>Internal Interconnect</p></td>
 <td><p>N/A</p></td>
 <td><p>400GbE</p></td>
 </tr>
@@ -199,7 +199,6 @@
 </tr>
 </tbody>
 </table>
-<p>*<em>For connecting to Tenstorrent Wormhole™-based cards only.</em></p>
 <p><img alt="" src="../../_images/wh_dimensions.png" /></p>
 <p><em>n150s/n300s without Active Cooling Kit</em></p>
 </section>
@@ -208,7 +207,7 @@
 <p>The n150s and n300s include two different methods for interconnecting cards.</p>
 <p><img alt="" src="../../_images/wh_portspec.png" /></p>
 <p>The Warp 100 notches are for attaching internal <a class="reference internal" href="#..%5Cwarp100.md"><span class="xref myst">Warp 100 bridges</span></a> between n150s and n300s cards.</p>
-<p>The two QSFP-DD ports are active and support 400GbE connectivity between cards and/or Wormhole-based systems/servers.</p>
+<p>The two QSFP-DD ports support QSFP-DD 400GbE connectivity between cards and/or the Galaxy Wormhole 4U Server.</p>
 </section>
 <section id="data-precision-formats">
 <h2>Data Precision Formats<a class="headerlink" href="#data-precision-formats" title="Permalink to this heading"></a></h2>
